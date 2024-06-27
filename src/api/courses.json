@@ -1,0 +1,309 @@
+{
+    "courses": [
+      {
+        "id": 1,
+        "name": "Introduction to React Native",
+        "instructor": "John Doe",
+        "description": "Learn the basics of React Native development and build your first mobile app.",
+        "enrollmentStatus": "Open",
+        "thumbnail": "https://your.image.here/react-native.jpg",
+        "duration": "8 weeks",
+        "schedule": "Tuesdays and Thursdays, 6:00 PM - 8:00 PM",
+        "location": "Online",
+        "prerequisites": ["Basic JavaScript knowledge", "Familiarity with React"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Introduction to React Native",
+            "content": "Overview of React Native, setting up your development environment."
+          },
+          {
+            "week": 2,
+            "topic": "Building Your First App",
+            "content": "Creating a simple mobile app using React Native components."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 101,
+            "name": "Alice Johnson",
+            "email": "alice@example.com"
+          },
+          {
+            "id": 102,
+            "name": "Bob Smith",
+            "email": "bob@example.com"
+          }
+        
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Advanced JavaScript",
+        "instructor": "Jane Smith",
+        "description": "Dive deep into JavaScript and learn advanced concepts and techniques.",
+        "enrollmentStatus": "In Progress",
+        "thumbnail": "https://your.image.here/advanced-javascript.jpg",
+        "duration": "6 weeks",
+        "schedule": "Mondays and Wednesdays, 5:00 PM - 7:00 PM",
+        "location": "Room 202",
+        "prerequisites": ["Basic JavaScript knowledge"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Advanced Functions",
+            "content": "Closures, callbacks, and higher-order functions."
+          },
+          {
+            "week": 2,
+            "topic": "Asynchronous JavaScript",
+            "content": "Promises, async/await, and handling asynchronous operations."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 103,
+            "name": "Charlie Brown",
+            "email": "charlie@example.com"
+          },
+          {
+            "id": 104,
+            "name": "Dave Williams",
+            "email": "dave@example.com"
+          }
+        
+        ]
+      },
+      {
+        "id": 3,
+        "name": "Full Stack Web Development",
+        "instructor": "Emily Davis",
+        "description": "Become a full stack web developer by learning both frontend and backend technologies.",
+        "enrollmentStatus": "Closed",
+        "thumbnail": "https://your.image.here/full-stack.jpg",
+        "duration": "12 weeks",
+        "schedule": "Tuesdays and Thursdays, 7:00 PM - 9:00 PM",
+        "location": "Room 303",
+        "prerequisites": ["Basic HTML, CSS, and JavaScript knowledge"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Frontend Development",
+            "content": "HTML, CSS, and JavaScript basics."
+          },
+          {
+            "week": 2,
+            "topic": "Backend Development",
+            "content": "Node.js, Express, and database integration."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 105,
+            "name": "Eva Green",
+            "email": "eva@example.com"
+          },
+          {
+            "id": 106,
+            "name": "Frank Harris",
+            "email": "frank@example.com"
+          }
+        
+        ]
+      },
+      {
+        "id": 4,
+        "name": "Data Structures and Algorithms",
+        "instructor": "George King",
+        "description": "Master data structures and algorithms to excel in coding interviews.",
+        "enrollmentStatus": "Open",
+        "thumbnail": "https://your.image.here/data-structures.jpg",
+        "duration": "10 weeks",
+        "schedule": "Wednesdays and Fridays, 6:00 PM - 8:00 PM",
+        "location": "Room 404",
+        "prerequisites": ["Basic programming knowledge"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Introduction to Data Structures",
+            "content": "Arrays, linked lists, stacks, and queues."
+          },
+          {
+            "week": 2,
+            "topic": "Algorithms Basics",
+            "content": "Sorting and searching algorithms."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 107,
+            "name": "Grace Lee",
+            "email": "grace@example.com"
+          },
+          {
+            "id": 108,
+            "name": "Henry Martinez",
+            "email": "henry@example.com"
+          }
+        
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Machine Learning",
+        "instructor": "Isabella Walker",
+        "description": "Learn the fundamentals of machine learning and build your first ML models.",
+        "enrollmentStatus": "In Progress",
+        "thumbnail": "https://your.image.here/machine-learning.jpg",
+        "duration": "8 weeks",
+        "schedule": "Mondays and Wednesdays, 5:00 PM - 7:00 PM",
+        "location": "Online",
+        "prerequisites": ["Basic programming knowledge", "Basic statistics"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Introduction to Machine Learning",
+            "content": "Overview of machine learning concepts and applications."
+          },
+          {
+            "week": 2,
+            "topic": "Supervised Learning",
+            "content": "Regression and classification techniques."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 109,
+            "name": "Ivy Nelson",
+            "email": "ivy@example.com"
+          },
+          {
+            "id": 110,
+            "name": "Jack Roberts",
+            "email": "jack@example.com"
+          }
+        
+        ]
+      },
+      {
+        "id": 6,
+        "name": "DevOps Essentials",
+        "instructor": "Karen Young",
+        "description": "Get started with DevOps and learn the essential tools and practices.",
+        "enrollmentStatus": "Open",
+        "thumbnail": "https://your.image.here/devops.jpg",
+        "duration": "6 weeks",
+        "schedule": "Tuesdays and Thursdays, 4:00 PM - 6:00 PM",
+        "location": "Room 505",
+        "prerequisites": ["Basic programming knowledge", "Familiarity with software development processes"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Introduction to DevOps",
+            "content": "Overview of DevOps principles and practices."
+          },
+          {
+            "week": 2,
+            "topic": "Version Control",
+            "content": "Using Git for version control."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 111,
+            "name": "Leo Wilson",
+            "email": "leo@example.com"
+          },
+          {
+            "id": 112,
+            "name": "Mia Clark",
+            "email": "mia@example.com"
+          }
+        
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Cybersecurity Fundamentals",
+        "instructor": "Nathan Scott",
+        "description": "Learn the basics of cybersecurity and how to protect systems and networks.",
+        "enrollmentStatus": "Closed",
+        "thumbnail": "https://your.image.here/cybersecurity.jpg",
+        "duration": "8 weeks",
+        "schedule": "Mondays and Wednesdays, 6:00 PM - 8:00 PM",
+        "location": "Room 606",
+        "prerequisites": ["Basic computer knowledge"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Introduction to Cybersecurity",
+            "content": "Overview of cybersecurity principles and threats."
+          },
+          {
+            "week": 2,
+            "topic": "Network Security",
+            "content": "Protecting networks and systems from attacks."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 113,
+            "name": "Olivia Martinez",
+            "email": "olivia@example.com"
+          },
+          {
+            "id": 114,
+            "name": "Paul Anderson",
+            "email": "paul@example.com"
+          }
+        
+        ]
+      },
+      {
+        "id": 8,
+        "name": "Cloud Computing",
+        "instructor": "Quincy Davis",
+        "description": "Understand the basics of cloud computing and how to use cloud services.",
+        "enrollmentStatus": "In Progress",
+        "thumbnail": "https://your.image.here/cloud-computing.jpg",
+        "duration": "10 weeks",
+        "schedule": "Tuesdays and Thursdays, 5:00 PM - 7:00 PM",
+        "location": "Online",
+        "prerequisites": ["Basic computer knowledge"],
+        "syllabus": [
+          {
+            "week": 1,
+            "topic": "Introduction to Cloud Computing",
+            "content": "Overview of cloud computing concepts and services."
+          },
+          {
+            "week": 2,
+            "topic": "Cloud Service Models",
+            "content": "Understanding IaaS, PaaS, and SaaS."
+          }
+          
+        ],
+        "students": [
+          {
+            "id": 115,
+            "name": "Rachel Lee",
+            "email": "rachel@example.com"
+          },
+          {
+            "id": 116,
+            "name": "Sam Harris",
+            "email": "sam@example.com"
+          }
+        
+        ]
+      }
+    ]
+  }
+  
