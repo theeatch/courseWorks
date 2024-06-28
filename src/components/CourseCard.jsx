@@ -9,7 +9,8 @@ const CourseCard = ({ course }) => {
     };
 
     return (
-        <div className="p-4 rounded-xl bg-slate-400/20 border-2 border-gray-800 shadow-xl shadow-slate-400 text-black flex flex-col gap-2" onClick={handleCourseClick}>
+        <div className="
+        p-4 rounded-xl bg-slate-400/20 border-2 border-gray-800 shadow-xl shadow-slate-400 text-black flex flex-col gap-2 hover:scale-105 duration-300 hover:cursor-pointer" onClick={handleCourseClick}>
             <img src={course.thumbnail} alt={`${course.name} thumbnail`} />
             <h2 className='text-3xl font-bold text-blue-600'>{course.name}</h2>
             <p><strong className='text-black/70'>Instructor:</strong> {course.instructor}</p>

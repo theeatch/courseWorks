@@ -25,10 +25,10 @@ const CourseDetailsPage = () => {
   }
 
   return (
-    <div className="course-details-page">
+    <div className="h-full w-full flex justify-center">
       {course ? (
-        <div>
-          <h1>{course.title}</h1>
+        <div className='h-full flex flex-col mt-5'>
+          <h1 className='text-7xl font-bold text-blue-500'>{course.name}</h1>
           <p><strong>Instructor:</strong> {course.instructor}</p>
           <p><strong>Description:</strong> {course.description}</p>
           <p><strong>Duration:</strong> {course.duration}</p>
