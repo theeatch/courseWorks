@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 
 const App = () => (
-  <Router className="w-screen h-screen">
+  <Router   >
     <Navbar />
     <Routes>
       <Route path="/" element={<CoursesPage />} />

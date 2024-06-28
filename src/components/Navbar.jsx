@@ -7,7 +7,7 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
   return (
-    <div className="w-full h-24 bg-slate-800/40 rounded-b-xl shadow-md shadow-slate-500/80 flex justify-center items-center">
+    <div className="fixed w-full z-50 h-24 bg-slate-800/40 rounded-b-xl shadow-md shadow-slate-500/80 flex justify-center items-center backdrop-blur-xl">
       <div className="md:flex hidden w-full justify-evenly">
         <div className="text-3xl font-bold text-black/50 flex items-center hover:text-4xl hover:text-black hover:underline duration-300 hover:cursor-pointer">
           <a href="/">Courses</a>

@@ -17,7 +17,7 @@ const CoursesPage = () => {
 
   if (loading) {
     return (
-      <div className="flex w-screen h-screen items-center justify-center animate-pulse duration-500">
+      <div className="flex w-full h-screen items-center justify-center animate-pulse duration-500">
         <svg
           id="logo-86"
           width="52"
@@ -51,7 +51,7 @@ const CoursesPage = () => {
 
   return (
     <div className="h-full w-full p-2 mx-auto">
-      <h1 className="text-7xl font-bold text-center p-8">Courses</h1>
+      <h1 className="text-7xl font-bold text-center p-8 mt-20">Courses</h1>
       <div className="container m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {courses.length === 0 ? (
           <div>No courses available</div>
