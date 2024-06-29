@@ -17,7 +17,7 @@ const CourseDetailsPage = () => {
     if (id) {
       dispatch(getCourseById(id - 1));
     }
-  }, []);
+  }, [id]);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -25,10 +25,15 @@ const CourseDetailsPage = () => {
 
   const handleEnrollCourse = () => {
     if (user && course) {
+      if (user.coursesReg && user.coursesReg.some(registeredCourse => registeredCourse.id === course.id)) {
+        console.log("Already enrolled in this course.", user.coursesReg, course.id);
+        return;
+      }
       dispatch(enrollCourse({ course: course, userId: user.uid }));
     }
   };
-  console.log(user);
+  const isUserEnrolled = user?.coursesReg?.some(Regcourse => Regcourse.id === course?.id);
+
   if (loading) {
     return (
       <div className="flex w-full h-screen items-center justify-center animate-pulse duration-500">
@@ -74,6 +79,12 @@ const CourseDetailsPage = () => {
             <p>
               <strong>Duration:</strong> {course.duration}
             </p>
+            <p>
+              <strong>Schedule:</strong> {course.schedule}
+            </p>
+            <p>
+              <strong>Location:</strong> {course.location}
+            </p>
             <p className="flex gap-5 items-center">
               <strong>Enrollment Status:</strong>
               {course.enrollmentStatus === "Closed" ? (
@@ -86,7 +97,7 @@ const CourseDetailsPage = () => {
                 </span>
               )}
             </p>
-            
+
             <div className="flex gap-20">
               <p>
                 <strong>Prerequisites:</strong>
@@ -126,10 +137,15 @@ const CourseDetailsPage = () => {
               </div>
             </div>
             <button
-              onClick={handleEnrollCourse}
-              className="bg-red-300 rounded-xl overflow-hidden w-full p-2 font-semibold text-xl hover:bg-green-500 hover:scale-105 duration-300"
+              onClick={isUserEnrolled ? null : handleEnrollCourse}
+              className={`rounded-xl overflow-hidden w-full p-2 font-semibold text-xl duration-300 ${
+                isUserEnrolled
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-red-300 hover:bg-green-500 hover:scale-105"
+              }`}
+              disabled={isUserEnrolled}
             >
-              Enroll Course
+              {isUserEnrolled ? "Already Enrolled" : "Enroll Course"}
             </button>
           </div>
           <div className="w-[40%] h-1/2">

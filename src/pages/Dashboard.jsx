@@ -8,6 +8,9 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.auth.loading);
+  const [completeStates, setCompleteStates] = React.useState(
+    user?.coursesReg?.map(() => false) || []
+  );
 
   const handleSignOut = async () => {
     const resultAction = await dispatch(signOut());
@@ -17,7 +20,21 @@ const DashboardPage = () => {
       console.error("Sign out failed:", resultAction.payload);
     }
   };
-  console.log("user in dashboard", user);
+  const extractNumber = (duration) => {
+    const match = duration.match(/\d+/);
+    const number = match ? parseInt(match[0], 10) : 0;
+    console.log(number); // Log the extracted number
+    return number;
+  };
+  const handleComplete = (index) => {
+    setCompleteStates((prevStates) => {
+      const newState = prevStates.map((state, i) =>
+        i === index ? true : state
+      );
+      console.log(newState);
+      return newState;
+    });
+  };
   if (loading) {
     return (
       <div className="flex w-full h-screen items-center justify-center animate-pulse duration-500">
@@ -47,7 +64,6 @@ const DashboardPage = () => {
       </div>
     );
   }
-
   return (
     <div className="h-full w-full flex items-center justify-center  pt-24 px-20">
       <div className="w-full max-w-screen-lg bg-white shadow-md rounded-lg overflow-hidden">
@@ -71,22 +87,40 @@ const DashboardPage = () => {
                     className="p-4 flex items-center justify-between border-8 rounded-xl"
                   >
                     <div>
-                      <p className="text-2xl font-semibold text-gray-900">
+                      <p className="text-3xl font-semibold text-gray-900">
                         {course.name}
                       </p>
-                      <p className="text-sm text-gray-500">
-                        {course.description}
+                      <p className="text-lg text-gray-500">
+                        by: <strong>{course.instructor}</strong> {"  "} due
+                        date: <strong>{course.duration}</strong>
                       </p>
+                      <progress
+                        value={
+                          completeStates[index]
+                            ? 100
+                            : extractNumber(course.duration) * 5
+                        }
+                        max="100"
+                        className="w-full mt-2"
+                      ></progress>
                     </div>
-                    <button
-                      className="bg-blue-500 text-white px-4 py-1 rounded-lg text-sm hover:bg-green-500 duration-300 hover:scale-105"
-                      onClick={() => {
-                        // Handle course detail navigation
-                        navigate(`/course/${course.id}`);
-                      }}
-                    >
-                      View Details
-                    </button>
+                    <div className="flex flex-col justify-center gap-4">
+                      <button
+                        className="bg-blue-500 text-white px-4 py-1 rounded-lg text-sm hover:bg-green-500 duration-300 hover:scale-105"
+                        onClick={() => {
+                          // Handle course detail navigation
+                          navigate(`/course/${course.id}`);
+                        }}
+                      >
+                        View Details
+                      </button>
+                      <button
+                        className="bg-green-500 text-white px-4 py-1 rounded-lg text-sm  duration-300 hover:scale-105"
+                        onClick={() => handleComplete(index)}
+                      >
+                        Mark Complete
+                      </button>
+                    </div>
                   </li>
                 ))
               )}
