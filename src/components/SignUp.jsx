@@ -1,21 +1,21 @@
 // src/components/SignUp.js
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUp } from '../redux/slices/authSlice'
+import { setUser, signUp } from '../redux/slices/authSlice'
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const { user, loading, error } = useSelector((state) => state.auth);
-  console.log(email, password)
+  console.log(userName, email, password)
 
   const handleSignUp = () => {
-    dispatch(signUp({ email, password }));
+    dispatch(signUp({ email, password, userName }));
   };
-  console.log(user)
 
   if(user){
     navigate('/courses')
@@ -24,6 +24,13 @@ const SignUp = () => {
   return (
     <div className='w-full mt-40 h-full flex flex-col gap-8 items-center justify-center'>
       <h2 className='text-4xl font-bold'>Sign Up</h2>
+      <input
+        type="text"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        placeholder="userName"
+        className='p-2'
+      />
       <input
         type="email"
         value={email}

@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUser, clearUser, signOut } from "../redux/slices/authSlice"; 
-import { auth, onAuthStateChanged } from "../firebase/firebase";
+import { clearUser, signOut } from "../redux/slices/authSlice"; 
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -53,7 +52,7 @@ const DashboardPage = () => {
       <div className="w-full max-w-screen-lg bg-white shadow-md rounded-lg overflow-hidden">
         <div className="p-6">
           <h2 className="text-3xl font-semibold text-gray-800 mb-2">
-            Welcome back, {user?.email}!
+            Welcome back, {user?.displayName}!
           </h2>
           <div className="border-t border-gray-200 mt-4">
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
@@ -82,7 +81,7 @@ const DashboardPage = () => {
                       className="bg-blue-500 text-white px-4 py-1 rounded-lg text-sm hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                       onClick={() => {
                         // Handle course detail navigation
-                        navigate(`/courses/${course.id}`);
+                        navigate(`/course/${course.id}`);
                       }}
                     >
                       View Details

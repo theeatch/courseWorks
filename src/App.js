@@ -27,7 +27,8 @@ const App = () => {
         dispatch(setUser({
           uid: user.uid,
           email: user.email,
-          coursesReg: userData.coursesReg,
+          displayName: userData.displayName,
+          coursesReg: userData.coursesReg ? userData.coursesReg : [],
         }));
       } else {
         dispatch(clearUser());

@@ -6,7 +6,6 @@ import {
   doc,
   setDoc,
   getDoc,
-  updateDoc,
 } from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -17,13 +16,14 @@ const serializeUser = (user) => {
   return {
     uid: user.uid,
     email: user.email,
+    displayName: user.displayName,
     coursesReg: user.coursesReg || [],
   };
 };
 
 export const signUp = createAsyncThunk(
   "auth/signUpWithEmailAndPassword",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password, userName }, { rejectWithValue }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -34,7 +34,7 @@ export const signUp = createAsyncThunk(
 
       await setDoc(doc(firedb, "users", user.uid), {
         email: user.email,
-        displayName: user.displayName,
+        displayName: userName,
         coursesReg: user.coursesReg || [], // Ensure coursesReg is initialized as an empty array if undefined
       });
 
@@ -80,11 +80,17 @@ export const enrollCourse = createAsyncThunk(
       const userDoc = await getDoc(userRef);
       const userData = userDoc.data();
 
+      const updateStudents = [...course.students, {
+        id: userId,
+        name: userData.displayName,
+        email: userData.email,
+      }]
+
       const updatedCoursesReg = [...userData.coursesReg, course];
 
       await setDoc(userRef, { coursesReg: updatedCoursesReg }, { merge: true });
 
-      return { userId, coursesReg: updatedCoursesReg };
+      return { userId, coursesReg: updatedCoursesReg, students: updateStudents};
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -152,6 +158,9 @@ const authSlice = createSlice({
         state.loading = false;
         if (state.user) {
           state.user.coursesReg = action.payload.coursesReg;
+        }
+        if(state.course){
+          state.course.students = action.payload.students;
         }
       })
       .addCase(enrollCourse.rejected, (state, action) => {
