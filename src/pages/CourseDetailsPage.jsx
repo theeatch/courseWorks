@@ -15,7 +15,7 @@ const CourseDetailsPage = () => {
 
   useEffect(() => {
     if (id) {
-      dispatch(getCourseById(id));
+      dispatch(getCourseById(id - 1));
     }
   }, []);
 
@@ -25,10 +25,10 @@ const CourseDetailsPage = () => {
 
   const handleEnrollCourse = () => {
     if (user && course) {
-      dispatch(enrollCourse({ courseId: course.id, userId: user.uid }));
+      dispatch(enrollCourse({ course: course, userId: user.uid }));
     }
   };
-
+  console.log(user);
   if (loading) {
     return (
       <div className="flex w-full h-screen items-center justify-center animate-pulse duration-500">
@@ -86,6 +86,23 @@ const CourseDetailsPage = () => {
                 </span>
               )}
             </p>
+            <div className="flex flex-col gap-4">
+              <h2
+                className="text-4xl font-bold cursor-pointer flex items-center gap-6"
+                onClick={toggleExpand}
+              >
+                Students Enrolled!
+              </h2>
+              <ul className="flex flex-col gap-4">
+                {course.students.map((student, index) => (
+                  <li key={index}>
+                    <strong className="text-blue-500">Name:</strong> {student.name}
+                    <br />
+                    <strong className="text-blue-500">Email:</strong> {student.email}
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="flex gap-20">
               <p>
                 <strong>Prerequisites:</strong>

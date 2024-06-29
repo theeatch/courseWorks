@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Dashboard from "./pages/Dashboard";
 import SignUp from "./components/SignUp";
+import { doc, getDoc, firedb } from "./firebase/firebase";
 import Login from "./components/Login";
 import Home from "./pages/Home";
 
@@ -17,18 +18,22 @@ const App = () => {
   const { user, loading} = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        const userRef = doc(firedb, "users", user.uid);
+        const userDoc = await getDoc(userRef);
+        const userData = userDoc.data();
+        
         dispatch(setUser({
           uid: user.uid,
           email: user.email,
-          coursesReg: user.coursesReg || [],
+          coursesReg: userData.coursesReg,
         }));
       } else {
         dispatch(clearUser());
       }
     });
-
+  
     return () => unsubscribe();
   }, [dispatch]);
 

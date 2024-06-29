@@ -1,6 +1,13 @@
 // src/features/auth/authSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { auth, firedb, doc, setDoc, getDoc, updateDoc } from "../../firebase/firebase";
+import {
+  auth,
+  firedb,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+} from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -69,19 +76,15 @@ export const enrollCourse = createAsyncThunk(
   "auth/enrollCourse",
   async ({ course, userId }, { rejectWithValue }) => {
     try {
-      const userDocRef = doc(firedb, "users", userId);
-      const userDoc = await getDoc(userDocRef);
-
-      if (!userDoc.exists()) {
-        throw new Error("User not found");
-      }
-
+      const userRef = doc(firedb, "users", userId);
+      const userDoc = await getDoc(userRef);
       const userData = userDoc.data();
-      const updatedCourses = [...(userData.coursesReg || []), course];
 
-      await updateDoc(userDocRef, { coursesReg: updatedCourses });
+      const updatedCoursesReg = [...userData.coursesReg, course];
 
-      return { userId, coursesReg: updatedCourses };
+      await setDoc(userRef, { coursesReg: updatedCoursesReg }, { merge: true });
+
+      return { userId, coursesReg: updatedCoursesReg };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -147,7 +150,7 @@ const authSlice = createSlice({
       })
       .addCase(enrollCourse.fulfilled, (state, action) => {
         state.loading = false;
-        if (state.user && state.user.uid === action.payload.userId) {
+        if (state.user) {
           state.user.coursesReg = action.payload.coursesReg;
         }
       })

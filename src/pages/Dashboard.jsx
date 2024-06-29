@@ -10,24 +10,7 @@ const DashboardPage = () => {
   const user = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.auth.loading);
 
-  useEffect( () => {
-    const unsubscribe =  onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(
-          setUser({
-            uid: user.uid,
-            email: user.email,
-            coursesReg: user.coursesReg || [],
-          })
-        );
-      } else {
-        dispatch(clearUser());
-        navigate("/"); 
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
+ 
 
     const handleSignOut = async () => {
         dispatch(clearUser());
