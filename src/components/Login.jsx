@@ -9,7 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { user, loading, error } = useSelector((state) => state.auth);
 
   const handleLogin = async () => {
     const result = await dispatch(signIn({ email, password }));
@@ -17,9 +17,10 @@ const Login = () => {
       navigate('/');
     }
   };
-  
 
-
+  if(user){
+    navigate('/')
+  }
 
   return (
     <div className='w-full mt-40 h-full flex flex-col gap-8 items-center justify-center'>

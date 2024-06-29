@@ -7,9 +7,10 @@ import { setUser, clearUser } from './redux/slices/authSlice';
 import { auth, onAuthStateChanged } from '../src/firebase/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+import Home from "./pages/Home";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,7 @@ const App = () => {
         dispatch(setUser({
           uid: user.uid,
           email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          emailVerified: user.emailVerified,
+          coursesReg: user.coursesReg || [],
         }));
       } else {
         dispatch(clearUser());
@@ -71,10 +70,10 @@ const App = () => {
       <Navbar />
       <Router>
         <Routes>
-          <Route path="/" element={ user ? <CoursesPage /> : <SignUp /> } />
+          <Route path="/" element={ user ? <Home /> : <SignUp /> } />
           <Route path="/courses" element={<CoursesPage />} />
           <Route path="/course/:id" element={<CourseDetailsPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={ <Dashboard /> } />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router> 

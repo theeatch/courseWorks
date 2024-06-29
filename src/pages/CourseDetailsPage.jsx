@@ -2,29 +2,36 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCourseById } from "../redux/slices/courseIdSlice";
+import { enrollCourse } from "../redux/slices/authSlice";
 
 const CourseDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const course = useSelector((state) => state.courseId.currentCourse);
-  const status = useSelector((state) => state.courseId.status);
+  const user = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.courseId.loading);
 
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     if (id) {
-      dispatch(getCourseById(id - 1));
+      dispatch(getCourseById(id));
     }
-  }, [dispatch, id]);
+  }, []);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
+  const handleEnrollCourse = () => {
+    if (user && course) {
+      dispatch(enrollCourse({ courseId: course.id, userId: user.uid }));
+    }
+  };
+
   if (loading) {
     return (
-      <div className="flex w-full h-screen items-center justify-center animate-pulse duration-500 overflow-hidden">
+      <div className="flex w-full h-screen items-center justify-center animate-pulse duration-500">
         <svg
           id="logo-86"
           width="52"
@@ -52,10 +59,6 @@ const CourseDetailsPage = () => {
     );
   }
 
-  if (status === "failed") {
-    return <p>Error loading course details.</p>;
-  }
-
   return (
     <div className="h-full w-full flex items-center justify-center bg-slate-300 p-12 overflow-hidden">
       {course ? (
@@ -72,7 +75,7 @@ const CourseDetailsPage = () => {
               <strong>Duration:</strong> {course.duration}
             </p>
             <p className="flex gap-5 items-center">
-              <strong>EnrollmentStatus:</strong>
+              <strong>Enrollment Status:</strong>
               {course.enrollmentStatus === "Closed" ? (
                 <span className="bg-red-500 text-white font-semibold text-xl p-2 rounded-xl">
                   {course.enrollmentStatus}
@@ -81,14 +84,14 @@ const CourseDetailsPage = () => {
                 <span className="bg-green-500 text-white font-semibold text-xl p-2 rounded-xl">
                   {course.enrollmentStatus}
                 </span>
-              )}{" "}
+              )}
             </p>
             <div className="flex gap-20">
               <p>
                 <strong>Prerequisites:</strong>
                 <ol className="flex flex-col">
                   {course.prerequisites.map((prerequisite, index) => (
-                    <li  key={index}>{prerequisite}</li>
+                    <li key={index}>{prerequisite}</li>
                   ))}
                 </ol>
               </p>
@@ -98,7 +101,13 @@ const CourseDetailsPage = () => {
                   onClick={toggleExpand}
                 >
                   Course Content
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" className={`w-4 duration-300 ${isExpanded ? "rotate-180" : ""}`}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 320 512"
+                    className={`w-4 duration-300 ${
+                      isExpanded ? "rotate-180" : ""
+                    }`}
+                  >
                     <path d="M2 334.5c-3.8 8.8-2 19 4.6 26l136 144c4.5 4.8 10.8 7.5 17.4 7.5s12.9-2.7 17.4-7.5l136-144c6.6-7 8.4-17.2 4.6-26s-12.5-14.5-22-14.5l-72 0 0-288c0-17.7-14.3-32-32-32L128 0C110.3 0 96 14.3 96 32l0 288-72 0c-9.6 0-18.2 5.7-22 14.5z" />
                   </svg>
                 </h2>
@@ -115,12 +124,19 @@ const CourseDetailsPage = () => {
                 )}
               </div>
             </div>
-            <button className="bg-red-300 rounded-xl overflow-hidden w-full p-2 font-semibold text-xl hover:bg-green-500 hover:scale-105 duration-300">
+            <button
+              onClick={handleEnrollCourse}
+              className="bg-red-300 rounded-xl overflow-hidden w-full p-2 font-semibold text-xl hover:bg-green-500 hover:scale-105 duration-300"
+            >
               Enroll Course
             </button>
           </div>
-          <div className="w-[40%] h-1/2 ">
-            <img src={course.thumbnail} alt="logo" className="h-[80%] w-full" />
+          <div className="w-[40%] h-1/2">
+            <img
+              src={course.thumbnail}
+              alt="course-thumbnail"
+              className="h-[80%] w-full"
+            />
           </div>
         </div>
       ) : (
