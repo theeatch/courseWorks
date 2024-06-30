@@ -163,7 +163,7 @@ const Navbar = () => {
           />
         </svg>
         {menuOpen ? (
-          <div className="w-1/3 absolute top-20 left-0 rounded-br-xl bg-slate-500 flex flex-col justify-end">
+          <div className="w-1/2 absolute top-20 left-0 rounded-br-xl bg-slate-500 flex flex-col justify-end">
             <div className="text-center text-2xl text-black/60 font-bold p-3 underline">
               <a href="/dashboard">Dashboard</a>
             </div>

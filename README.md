@@ -8,7 +8,7 @@ The Project uses firebase's authentication(SignUp and Login and Signout) funtion
 Upon Signing in, a User collection is added in the firestore database for relevant information to be fetched and displayed.
 Realtime Database contains dummy courses and all its information so that it is easy to interact with the data.
 
-Courses have Enroll and like functions, so if a user enroll's in a course, its database is updated with relevant course.
+Courses have Enroll and like functions, so if a user enrolls in a course, its database is updated with relevant course.
 
 Upon liking the course, the course likes are updated realtime and fetched from database.
 
