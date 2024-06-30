@@ -25,14 +25,25 @@ const CourseDetailsPage = () => {
 
   const handleEnrollCourse = () => {
     if (user && course) {
-      if (user.coursesReg && user.coursesReg.some(registeredCourse => registeredCourse.id === course.id)) {
-        console.log("Already enrolled in this course.", user.coursesReg, course.id);
+      if (
+        user.coursesReg &&
+        user.coursesReg.some(
+          (registeredCourse) => registeredCourse.id === course.id
+        )
+      ) {
+        console.log(
+          "Already enrolled in this course.",
+          user.coursesReg,
+          course.id
+        );
         return;
       }
       dispatch(enrollCourse({ course: course, userId: user.uid }));
     }
   };
-  const isUserEnrolled = user?.coursesReg?.some(Regcourse => Regcourse.id === course?.id);
+  const isUserEnrolled = user?.coursesReg?.some(
+    (Regcourse) => Regcourse.id === course?.id
+  );
 
   if (loading) {
     return (
@@ -65,11 +76,13 @@ const CourseDetailsPage = () => {
   }
 
   return (
-    <div className="h-full w-full flex items-center justify-center bg-slate-300 p-12 overflow-hidden">
+    <div className="h-full w-full flex items-center justify-center bg-slate-300 p-4 sm:p-12 overflow-hidden">
       {course ? (
-        <div className="w-full h-full mt-28 flex justify-between">
-          <div className="w-1/2 h-full flex flex-col mt-5 gap-4 text-xl">
-            <h1 className="text-7xl font-bold text-blue-500">{course.name}</h1>
+        <div className="w-full h-full mt-20 lg:mt-28 flex flex-col lg:flex-row justify-between">
+          <div className="w-full lg:w-1/2 h-full flex flex-col mt-5 gap-4 text-lg sm:text-xl">
+            <h1 className="text-4xl sm:text-7xl font-bold text-blue-500">
+              {course.name}
+            </h1>
             <p>
               <strong>Instructor:</strong> {course.instructor}
             </p>
@@ -88,17 +101,17 @@ const CourseDetailsPage = () => {
             <p className="flex gap-5 items-center">
               <strong>Enrollment Status:</strong>
               {course.enrollmentStatus === "Closed" ? (
-                <span className="bg-red-500 text-white font-semibold text-xl p-2 rounded-xl">
+                <span className="bg-red-500 text-white font-semibold text-lg sm:text-xl p-2 rounded-xl">
                   {course.enrollmentStatus}
                 </span>
               ) : (
-                <span className="bg-green-500 text-white font-semibold text-xl p-2 rounded-xl">
+                <span className="bg-green-500 text-white font-semibold text-lg sm:text-xl p-2 rounded-xl">
                   {course.enrollmentStatus}
                 </span>
               )}
             </p>
 
-            <div className="flex gap-20">
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
               <p>
                 <strong>Prerequisites:</strong>
                 <ol className="flex flex-col">
@@ -109,7 +122,7 @@ const CourseDetailsPage = () => {
               </p>
               <div className="flex flex-col gap-4">
                 <h2
-                  className="text-4xl font-bold cursor-pointer flex items-center gap-6"
+                  className="text-2xl sm:text-4xl font-bold cursor-pointer flex items-center gap-6"
                   onClick={toggleExpand}
                 >
                   Course Content
@@ -138,7 +151,7 @@ const CourseDetailsPage = () => {
             </div>
             <button
               onClick={isUserEnrolled ? null : handleEnrollCourse}
-              className={`rounded-xl overflow-hidden w-full p-2 font-semibold text-xl duration-300 ${
+              className={`rounded-xl overflow-hidden w-full p-2 font-semibold text-lg sm:text-xl duration-300 ${
                 isUserEnrolled
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-red-300 hover:bg-green-500 hover:scale-105"
@@ -148,7 +161,7 @@ const CourseDetailsPage = () => {
               {isUserEnrolled ? "Already Enrolled" : "Enroll Course"}
             </button>
           </div>
-          <div className="w-[40%] h-1/2">
+          <div className="w-full lg:w-[40%] h-1/2 mt-5 lg:mt-0">
             <img
               src={course.thumbnail}
               alt="course-thumbnail"

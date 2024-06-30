@@ -68,9 +68,6 @@ const App = () => {
     );
   }
 
-
-  console.log("user in homepage", user);
-
   return (
     <>
       <Navbar />

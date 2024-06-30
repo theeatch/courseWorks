@@ -9,7 +9,7 @@ const DashboardPage = () => {
   const user = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.auth.loading);
   const [completeStates, setCompleteStates] = React.useState(
-    user?.coursesReg?.map(() => false) || []
+    user?.coursesReg?.map(() => false) 
   );
 
   const handleSignOut = async () => {
@@ -20,21 +20,21 @@ const DashboardPage = () => {
       console.error("Sign out failed:", resultAction.payload);
     }
   };
-  const extractNumber = (duration) => {
-    const match = duration.match(/\d+/);
-    const number = match ? parseInt(match[0], 10) : 0;
-    console.log(number); // Log the extracted number
-    return number;
+
+  const extractNumber = () => {
+    return Math.floor(Math.random() * (80 - 10 + 1)) + 10;
   };
+
   const handleComplete = (index) => {
     setCompleteStates((prevStates) => {
       const newState = prevStates.map((state, i) =>
         i === index ? true : state
       );
-      console.log(newState);
+      console.log("New State:", newState);
       return newState;
     });
   };
+
   if (loading) {
     return (
       <div className="flex w-full h-screen items-center justify-center animate-pulse duration-500">
@@ -65,17 +65,17 @@ const DashboardPage = () => {
     );
   }
   return (
-    <div className="h-full w-full flex items-center justify-center  pt-24 px-20">
+    <div className="h-full w-full flex items-center justify-center pt-24 px-4 sm:px-6 lg:px-20">
       <div className="w-full max-w-screen-lg bg-white shadow-md rounded-lg overflow-hidden">
-        <div className="p-6">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-2">
+        <div className="p-4 sm:p-6">
+          <h2 className="text-3xl md:text-5xl font-semibold text-gray-800 mb-2">
             Welcome back, {user?.displayName}!
           </h2>
           <div className="border-t border-gray-200 mt-4 p-4 space-y-6 h-full">
-            <h3 className="text-4xl font-semibold text-gray-700 mb-2">
+            <h3 className="text-2xl sm:text-4xl font-semibold text-gray-700 mb-2">
               Your Courses
             </h3>
-            <ul className="space-y-8 ">
+            <ul className="space-y-4 sm:space-y-8">
               {user?.coursesReg?.length === 0 ? (
                 <p className="text-gray-500 p-4">
                   You are not enrolled in any courses yet.
@@ -84,13 +84,13 @@ const DashboardPage = () => {
                 user?.coursesReg?.map((course, index) => (
                   <li
                     key={index}
-                    className="p-4 flex items-center justify-between border-8 rounded-xl"
+                    className="p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between border-8 rounded-xl"
                   >
-                    <div>
-                      <p className="text-3xl font-semibold text-gray-900">
+                    <div className="w-full sm:w-auto">
+                      <p className="text-xl sm:text-3xl font-semibold text-gray-900">
                         {course.name}
                       </p>
-                      <p className="text-lg text-gray-500">
+                      <p className="text-sm sm:text-lg text-gray-500">
                         by: <strong>{course.instructor}</strong> {"  "} due
                         date: <strong>{course.duration}</strong>
                       </p>
@@ -98,24 +98,23 @@ const DashboardPage = () => {
                         value={
                           completeStates[index]
                             ? 100
-                            : extractNumber(course.duration) * 5
+                            : extractNumber()
                         }
                         max="100"
                         className="w-full mt-2"
                       ></progress>
                     </div>
-                    <div className="flex flex-col justify-center gap-4">
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4 sm:mt-0">
                       <button
                         className="bg-blue-500 text-white px-4 py-1 rounded-lg text-sm hover:bg-green-500 duration-300 hover:scale-105"
                         onClick={() => {
-                          // Handle course detail navigation
                           navigate(`/course/${course.id}`);
                         }}
                       >
                         View Details
                       </button>
                       <button
-                        className="bg-green-500 text-white px-4 py-1 rounded-lg text-sm  duration-300 hover:scale-105"
+                        className="bg-green-500 text-white px-4 py-1 rounded-lg text-sm hover:bg-blue-500 duration-300 hover:scale-105"
                         onClick={() => handleComplete(index)}
                       >
                         Mark Complete
@@ -128,7 +127,7 @@ const DashboardPage = () => {
           </div>
           <button
             onClick={handleSignOut}
-            className="bg-red-500 rounded-xl p-3 font-semibold text-xl hover:bg-green-500 duration-500 hover:text-white"
+            className="bg-red-500 rounded-xl p-3 font-semibold text-lg sm:text-xl hover:bg-green-500 duration-500 hover:text-white"
           >
             Sign Out
           </button>
