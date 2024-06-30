@@ -6,6 +6,10 @@ import {
   doc,
   setDoc,
   getDoc,
+  ref,
+  get,
+  update,
+  db,
 } from "../../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -97,6 +101,29 @@ export const enrollCourse = createAsyncThunk(
   }
 );
 
+export const LikeCourse = createAsyncThunk("auth/LikeCourse",
+  async ({ id }) => {
+    try {
+      id = id-1
+      const dbRef = ref(db, `courses/${id}`);
+      const courseSnapshot = await get(dbRef);
+      console.log(courseSnapshot.val());
+      if (!courseSnapshot.exists()) {
+        throw new Error("Course not found");
+      }
+      const courseData = courseSnapshot.val();
+      console.log(courseData)
+      const updateLikes = courseData.likes + 1;
+
+      await update(dbRef, { likes: updateLikes });
+
+      return { courseId: id, likes: updateLikes };
+    } catch (error) {
+      return error.message;
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -164,6 +191,20 @@ const authSlice = createSlice({
         }
       })
       .addCase(enrollCourse.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(LikeCourse.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(LikeCourse.fulfilled, (state, action) => {
+        state.loading = false;
+        if(state.course){
+          state.course.likes = action.payload.likes;
+        }
+      })
+      .addCase(LikeCourse.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

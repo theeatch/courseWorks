@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "../redux/slices/authSlice";
@@ -8,9 +8,7 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const loading = useSelector((state) => state.auth.loading);
-  const [completeStates, setCompleteStates] = React.useState(
-    user?.coursesReg?.map(() => false) 
-  );
+  const [completeStates, setCompleteStates] = useState([]);
 
   const handleSignOut = async () => {
     const resultAction = await dispatch(signOut());
@@ -20,6 +18,13 @@ const DashboardPage = () => {
       console.error("Sign out failed:", resultAction.payload);
     }
   };
+
+  useEffect(()=>{
+    if(user){
+      setCompleteStates(user?.coursesReg?.map(() => false) )
+    }
+  },[user])
+  
 
   const extractNumber = () => {
     return Math.floor(Math.random() * (80 - 10 + 1)) + 10;
@@ -84,7 +89,7 @@ const DashboardPage = () => {
                 user?.coursesReg?.map((course, index) => (
                   <li
                     key={index}
-                    className="p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between border-8 rounded-xl"
+                    className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between border-8 rounded-xl"
                   >
                     <div className="w-full sm:w-auto">
                       <p className="text-xl sm:text-3xl font-semibold text-gray-900">
@@ -95,13 +100,9 @@ const DashboardPage = () => {
                         date: <strong>{course.duration}</strong>
                       </p>
                       <progress
-                        value={
-                          completeStates[index]
-                            ? 100
-                            : extractNumber()
-                        }
+                        value={completeStates[index] ? 100 : extractNumber()}
                         max="100"
-                        className="w-full mt-2"
+                        className="w-full   rounded-r-lg"
                       ></progress>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4 sm:mt-0">
@@ -114,10 +115,11 @@ const DashboardPage = () => {
                         View Details
                       </button>
                       <button
+                      disable={completeStates[index]}
                         className="bg-green-500 text-white px-4 py-1 rounded-lg text-sm hover:bg-blue-500 duration-300 hover:scale-105"
                         onClick={() => handleComplete(index)}
                       >
-                        Mark Complete
+                        {completeStates[index] ? "Completed " : "Mark Complete" }
                       </button>
                     </div>
                   </li>

@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-import { getDatabase, ref, get, child } from "firebase/database";
+import { getDatabase, ref, get, child, update } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkAwbZNNsmJjSgcTIvDYkIYZQa0pVlL-8",
@@ -38,4 +38,5 @@ export {
   auth,
   onAuthStateChanged,
   firedb,
+  update,
 };

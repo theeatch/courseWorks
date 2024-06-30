@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCourseById } from "../redux/slices/courseIdSlice";
-import { enrollCourse } from "../redux/slices/authSlice";
-
+import { enrollCourse, LikeCourse } from "../redux/slices/authSlice";
 const CourseDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -44,6 +43,13 @@ const CourseDetailsPage = () => {
   const isUserEnrolled = user?.coursesReg?.some(
     (Regcourse) => Regcourse.id === course?.id
   );
+  const handleLikes = async () =>{
+    if(user && course){
+      await dispatch(LikeCourse({id}));
+      alert("course liked!")
+    }
+
+  }
 
   if (loading) {
     return (
@@ -109,6 +115,7 @@ const CourseDetailsPage = () => {
                   {course.enrollmentStatus}
                 </span>
               )}
+              <p><strong className="text-blue-500">Likes!: </strong>{course.likes}</p>
             </p>
 
             <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
@@ -148,6 +155,12 @@ const CourseDetailsPage = () => {
                   </ul>
                 )}
               </div>
+              <button
+                onClick={handleLikes}
+                className="bg-blue-500 p-2 h-1/2 rounded-xl hover:scale-105 duration-300 text-white font-semibold text-lg"
+              >
+                Like this Course!
+              </button>
             </div>
             <button
               onClick={isUserEnrolled ? null : handleEnrollCourse}
